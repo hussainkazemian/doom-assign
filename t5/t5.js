@@ -1,3 +1,4 @@
+'use strict';
 const restaurants = [
   {
     location: {type: 'Point', coordinates: [25.018456, 60.228982]},
@@ -771,3 +772,24 @@ const restaurants = [
 ];
 
 // your code here
+// Initialize the map
+const map = L.map('map').setView([60.228982, 25.018456], 13); // Center on the first restaurant's coordinates
+
+// Add a tile layer to the map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+// Function to create a popup content
+function createPopupContent(name, address) {
+  return `<h3>${name}</h3><p>${address}</p>`;
+}
+
+// Add markers to the map
+restaurants.forEach(restaurant => {
+  const [lon, lat] = restaurant.location.coordinates; // Leaflet uses [lon, lat]
+
+  const marker = L.marker([lat, lon]).addTo(map);
+  marker.bindPopup(createPopupContent(restaurant.name, restaurant.address));
+});

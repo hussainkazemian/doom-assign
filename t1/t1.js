@@ -1,9 +1,11 @@
+'use strict';
+
 // array for todo list
 const todoList = [
   {
     id: 1,
     task: 'Learn HTML',
-    completed: true,
+    completed: false,
   },
   {
     id: 2,
@@ -15,6 +17,7 @@ const todoList = [
     task: 'Learn JS',
     completed: false,
   },
+
   {
     id: 4,
     task: 'Learn TypeScript',
@@ -28,4 +31,16 @@ const todoList = [
 ];
 
 // add your code here
-//updated
+const lista = document.querySelector('#target');
+for (const todo of todoList) {
+  let checkAttr = '';
+  if (todo.completed) {
+    checkAttr= 'checked';
+  }
+
+  const html = `<li>
+                  <input type="checkbox" id="todo-${todo.id}" ${checkAttr}>
+                  <label for ="todo-1">${todo.task}</label>
+                </li>`;
+lista.insertAdjacentHTML('beforeend', html);
+}

@@ -28,6 +28,6 @@ input {
 }
 
 input[type='checkbox']:checked + label {
-  background-color: rgb(146, 208, 136);
+  background-color: rgb(136, 205, 231);
   font-weight: bold;
 }

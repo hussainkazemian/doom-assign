@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 20px;
+  background-color: "#f4f4f4";
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: blue;
+}
+
+#target {
+background-color: rgba(154, 154, 103, 0.933);
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0 0 10px rgb(red, green, blue 1.0);
+
+}
+
+p {
+ font-size: 14px;
+ margin: 10px 0;
+
+}
+button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

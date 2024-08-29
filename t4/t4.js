@@ -1,3 +1,5 @@
+'use strict';
+
 const restaurants = [
   {
     location: {type: 'Point', coordinates: [25.018456, 60.228982]},
@@ -771,3 +773,55 @@ const restaurants = [
 ];
 
 // your code here
+// Function to calculate Euclidean distance between two points
+function euclideanDistance(lat1, lon1, lat2, lon2) {
+  const x = lat2 - lat1;
+  const y = lon2 - lon1;
+  return Math.sqrt(x * x + y * y);
+}
+
+// Function to display restaurants
+function displayRestaurants(sortedRestaurants) {
+  const table = document.querySelector('table');
+  const tbody = document.createElement('tbody');
+
+  sortedRestaurants.forEach(restaurant => {
+    const tr = document.createElement('tr');
+    const tdName = document.createElement('td');
+    const tdAddress = document.createElement('td');
+
+    tdName.textContent = restaurant.name;
+    tdAddress.textContent = restaurant.address;
+
+    tr.appendChild(tdName);
+    tr.appendChild(tdAddress);
+    tbody.appendChild(tr);
+  });
+
+  // Remove any existing rows before appending new ones
+  table.querySelector('tbody')?.remove();
+  table.appendChild(tbody);
+}
+
+// Get user's current location and sort restaurants
+navigator.geolocation.getCurrentPosition(
+  position => {
+    const userLat = position.coords.latitude;
+    const userLon = position.coords.longitude;
+
+    // Calculate distances and sort restaurants
+    const sortedRestaurants = restaurants
+      .map(restaurant => {
+        const [restLon, restLat] = restaurant.location.coordinates;
+        const distance = euclideanDistance(userLat, userLon, restLat, restLon);
+        return {...restaurant, distance};
+      })
+      .sort((a, b) => a.distance - b.distance);
+
+    // Display sorted restaurants
+    displayRestaurants(sortedRestaurants);
+  },
+  error => {
+    console.error('Error getting location:', error);
+  }
+);
